@@ -6,7 +6,7 @@ for i in num_list:
     if i == 0:
         break
 
-    now_num = num_list // 10
+    now_num = i // 10
 
     arr[now_num] += 1
 
