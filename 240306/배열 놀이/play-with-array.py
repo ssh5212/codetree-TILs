@@ -10,11 +10,12 @@ for _ in range(q):
         now_ans = -1
         for i in range(len(arr)):
             if arr[i] == q_arr[1]:
-                now_ans = i
+                now_ans = i + 1
+                break
         if now_ans == -1:
             print(0)
         else:
-            print(now_ans + 1)
+            print(now_ans)
     else:
         for i in range(q_arr[1] - 1, q_arr[2]):
             print(arr[i], end=" ")
