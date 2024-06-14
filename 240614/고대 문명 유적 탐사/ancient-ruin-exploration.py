@@ -91,7 +91,9 @@ def find():
     global nn, v
 
     f_ans = 0
+    fir_ans = 0
 
+    turn = 0
     while True:
         now_ans = 0
         v = [[False] * nn for _ in range(nn)]
@@ -100,13 +102,18 @@ def find():
                 if arr[i][j] != 0 and v[i][j] != True:
                     now_ans += bfs(i, j)
 
+        if turn == 0:
+            fir_ans = now_ans
+
+        turn += 1
+
         f_ans += now_ans
         if now_ans == 0:
             break
 
         # 벽면 채우기
         fill()
-    return f_ans
+    return fir_ans, f_ans
 
 
 def print_arr(arrs):
@@ -130,7 +137,7 @@ wc = 0 # 벽면 숫자 사용 개수 카운팅
 
 # 탐사 횟수만큼 반복
 while tc < kk:
-    # print("=====================tc", tc)
+    tc_f_ans = 0
     tc_ans = 0
     tc_x = 0
     tc_y = 0
@@ -152,14 +159,13 @@ while tc < kk:
                 rotate(i, j, r, arr)
 
                 # 유적 찾기
-                ans = find()
+                fir_ans, ans = find()
 
                 if ans == 0:
                     continue
 
-                if ans > tc_ans:
-                    # print("ans", ans)
-                    # print(i, j, r)
+                if fir_ans > tc_f_ans:
+                    tc_f_ans = fir_ans
                     tc_ans = ans
                     tc_x = i
                     tc_y = j
@@ -167,8 +173,10 @@ while tc < kk:
                     tc_wc = now_wc
                     arr_copy(tc_arr, arr)
 
-                elif ans == tc_ans:
+                elif fir_ans == tc_f_ans:
                     if tc_r > r:
+                        tc_f_ans = fir_ans
+                        tc_ans = ans
                         tc_x = i
                         tc_y = j
                         tc_r = r
@@ -177,6 +185,8 @@ while tc < kk:
 
                     elif tc_r == r:
                         if tc_y > j:
+                            tc_f_ans = fir_ans
+                            tc_ans = ans
                             tc_x = i
                             tc_y = j
                             tc_r = r
@@ -185,6 +195,8 @@ while tc < kk:
 
                         elif tc_y == j:
                             if tc_x > i:
+                                tc_f_ans = fir_ans
+                                tc_ans = ans
                                 tc_x = i
                                 tc_y = j
                                 tc_r = r
