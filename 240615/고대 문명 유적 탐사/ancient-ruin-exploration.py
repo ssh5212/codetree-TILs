@@ -175,9 +175,12 @@ ww = 0
 # 횟수만큼 반복
 ss = 0
 while ss < kk:
-    get_first = 0
     # 회전 목표 선택
     xx, yy, rr = pick()
+    
+    # 회전해서 없을 수 있는 값이 없으면 끝내기
+    if xx == -1:
+        break
 
     # 회전
     arr_copy(arr, ori_arr)
